@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React, { PureComponent } from "react";
 import {
   Card,
   CardActions,
@@ -8,7 +8,6 @@ import {
 } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
 
-import { info } from "../constants";
 import { Loader } from "./Loader";
 import jedi from "../constants/img/jedi.png";
 
@@ -36,13 +35,13 @@ export class EventPage extends PureComponent {
       history
     } = this.props;
 
-    if (this.state.eventInfo.length == 0) {
+    if (this.state.eventInfo.length === 0) {
       return <Loader delay={600} />;
     }
 
     console.log(this.state.eventInfo);
 
-    const [card] = this.state.eventInfo.filter(e => e.id == id);
+    const [card] = this.state.eventInfo.filter(e => e.id === id);
     console.log(id);
     console.log(card);
     const author = card.author;
@@ -54,11 +53,7 @@ export class EventPage extends PureComponent {
 
     return (
       <Card>
-        <CardHeader
-          title={card.title}
-          subtitle={`${author}`}
-          avatar={jedi}
-        />
+        <CardHeader title={card.title} subtitle={`${author}`} avatar={jedi} />
         <CardText>{card.description}</CardText>
         <CardActions>
           <FlatButton label="Take" onClick={goHome} />
