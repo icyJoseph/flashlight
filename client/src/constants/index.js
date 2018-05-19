@@ -17,6 +17,6 @@ export const events = info =>
     new Array(20),
     (x, i) =>
       i % 2 === 0
-        ? { ...info, left: true, id: `${i}-info.title` }
-        : { ...info, id: `${i}-info.title`, left: false }
+        ? { ...info, left: true, id: `${i}-info.title`, featured: i % 3 === 0 }
+        : { ...info, id: `${i}-info.title`, left: false, featured: i % 3 === 0 }
   );
