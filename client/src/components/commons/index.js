@@ -11,7 +11,7 @@ export const iconButtonElement = (
   </IconButton>
 );
 
-export const rightIconMenu = (
+export const cardMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
     <MenuItem>Reply</MenuItem>
     <MenuItem>Forward</MenuItem>
