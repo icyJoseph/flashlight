@@ -2,11 +2,15 @@ import fs from 'fs';
 
 const FILENAME = 'users.json';
 
+let didLoad = false;
 const users = [];
+
+let userId = 0;
 
 export function restoreUsers() {
   return new Promise(resolve => {
     fs.readFile(FILENAME, 'utf8', (err, txt) => {
+      didLoad = true;
       if (err) {
         console.error('Could not open ' + FILENAME);
         resolve(users);
@@ -14,6 +18,8 @@ export function restoreUsers() {
         if (txt) {
           users.push(...JSON.parse(txt));
         }
+
+        userId = Math.max(0, ...users.map(({ id }) => id));
         resolve(users);
       }
     });
@@ -21,13 +27,18 @@ export function restoreUsers() {
 }
 
 export function saveUsers() {
-  if (users) {
-    fs.writeFileSync(FILENAME, users.toString());
+  if (didLoad) {
+    fs.writeFileSync(FILENAME, JSON.stringify(users));
   }
 }
 
 export function createUser(user) {
+  ++userId;
+  user.id = userId;
+
   users.push(user);
+
+  return user;
 }
 
 export function getUsers() {

@@ -8,10 +8,14 @@
   "scripts": {
     "start": "npm-run-all --parallel start:server start:client",
     "start:server": "nodemon --exec babel-node --watch server server/index.js",
-    "start:client": "cd client && yarn start"
+    "start:client": "cd client && yarn start",
+    "delete-db": "rm users.json searches.json events.json"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "session-file-store": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
