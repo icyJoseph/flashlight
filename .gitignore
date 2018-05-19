@@ -1,5 +1,7 @@
 node_modules
 .vscode
 
-*.json
+users.json
+events.json
+searches.json
 
