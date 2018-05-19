@@ -4,6 +4,8 @@ import { darkBlack } from "material-ui/styles/colors";
 export const paths = ["history", "flashlight", "add", "me"];
 
 export const today = "Today";
+export const FlashLight = "FlashLight";
+export const previously = "Previously...";
 
 export const info = {
   title: "Brunch this weekend?",
@@ -22,3 +24,14 @@ export const events = info =>
         ? { ...info, left: true, id: `${i}-info.title`, featured: i % 3 === 0 }
         : { ...info, id: `${i}-info.title`, left: false, featured: i % 3 === 0 }
   );
+
+export const search = {
+  id: 12929292,
+  search: "Brunch this weekend?",
+  result: [events],
+  timestamp: 999
+};
+
+export const HistoryData = {
+  entries: [search, ...events(info)]
+};
