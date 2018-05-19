@@ -6,14 +6,14 @@ import Media from "react-media";
 
 import EventCard from "../components/EventCard";
 import DesktopCard from "../components/DesktopCard";
-import { events, info, today } from "../constants";
+import { info, today } from "../constants";
 
 export const Feed = ({ history }) => {
   const navigateTo = id => () => {
     return history.push(`/EventPage/${id}`);
   };
 
-  const listOfEvents = events(info);
+  const listOfEvents = info;
   const [lastEvent] = listOfEvents.slice(listOfEvents.length - 1);
   const firstEvents = listOfEvents.slice(0, listOfEvents.length - 1);
 
@@ -32,13 +32,21 @@ export const Feed = ({ history }) => {
         render={() => (
           <List>
             <Subheader>{today}</Subheader>
-            {firstEvents.map(e => (
+            {firstEvents.map((e, i) => (
               <Fragment key={e.id}>
-                <EventCard {...e} navigateTo={navigateTo(e.id)} />
+                <EventCard
+                  {...e}
+                  left={i % 2 === 0}
+                  navigateTo={navigateTo(e.id)}
+                />
                 <Divider />
               </Fragment>
             ))}
-            <EventCard {...lastEvent} />
+            <EventCard
+              {...lastEvent}
+              navigateTo={navigateTo(lastEvent.id)}
+              left={listOfEvents.length % 2 === 0 ? false : true}
+            />
           </List>
         )}
       />

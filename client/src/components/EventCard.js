@@ -6,13 +6,14 @@ import { cardMenu } from "./commons";
 
 export const EventCard = ({
   title,
-  person: { name = "", lastname = "" },
+  person,
   description,
   image,
   color,
   left,
   navigateTo
 }) => {
+  const [{ name, lastname }] = person;
   const avatar = left
     ? { leftAvatar: <Avatar src={image} />, rightIconButton: cardMenu }
     : { rightAvatar: <Avatar src={image} />, leftIcon: cardMenu };
@@ -22,14 +23,13 @@ export const EventCard = ({
       {...avatar}
       primaryText={`${name} ${lastname}`}
       secondaryText={
-        <p>
+        <p onClick={navigateTo}>
           <span style={{ color: color }}>{title}</span>
           <br />
           {description}
         </p>
       }
       secondaryTextLines={2}
-      onClick={navigateTo}
     />
   );
 };

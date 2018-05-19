@@ -12,9 +12,10 @@ export const HistoryCard = ({
   image,
   navigateTo
 }) => {
+  const [main] = person ? person : [{ name: "", lastname: "" }];
   return (
     <ListItem
-      primaryText={search ? search : `${person.name} ${person.lastname}`}
+      primaryText={search ? search : `${main.name} ${main.lastname}`}
       secondaryText={
         <p>
           {!search && <span style={{ color: color }}>{title}</span>}

@@ -7,24 +7,53 @@ import {
   CardText
 } from "material-ui/Card";
 import FlatButton from "material-ui/FlatButton";
-import jedi from "../constants/img/jedi.png";
 
-export const EventPage = () => (
-  <Card>
-    <CardHeader title="URL Avatar" subtitle="Subtitle" avatar={jedi} />
+import { info } from "../constants";
 
-    <CardTitle title="Card title" subtitle="Card subtitle" />
-    <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis
-      pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate
-      interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam
-      dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    </CardText>
-    <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
-    </CardActions>
-  </Card>
-);
+export const EventPage = ({
+  match: {
+    params: { id }
+  },
+  history
+}) => {
+  const [card] = info.filter(e => e.id === id);
+  const maker = card.person.slice(0, 1);
+  const others = card.person.slice(1);
+
+  const goHome = () => {
+    return history.push("/");
+  };
+
+  return (
+    <Card>
+      <CardHeader
+        title={card.title}
+        subtitle={`${maker.name} ${maker.lastname}`}
+        avatar={card.image}
+      />
+      <CardText>{card.description}</CardText>
+      <CardActions>
+        <FlatButton label="Take" onClick={goHome} />
+        <FlatButton label="Not now" onClick={goHome} />
+      </CardActions>
+      <CardTitle
+        title="Who else is joining?"
+        subtitle={
+          others.length === 0 ? (
+            <p>Nobody else</p>
+          ) : (
+            <ul>
+              {others.map(({ name, lastname }) => (
+                <li key={name}>
+                  {name} {lastname}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      />
+    </Card>
+  );
+};
 
 export default EventPage;
