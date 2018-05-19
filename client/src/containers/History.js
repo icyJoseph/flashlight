@@ -6,10 +6,10 @@ import Subheader from "material-ui/Subheader";
 import HistoryCard from "../components/HistoryCard";
 import { previously, HistoryData } from "../constants";
 
-export const Feed = ({ history }) => {
-  const navigateTo = id => () => {
-    return history.push(`/SearchDetail/${id}`);
-  };
+export const History = ({ history }) => {
+  // const navigateTo = id => () => {
+  //   return history.push(`/SearchDetail/${id}`);
+  // };
 
   const { entries } = HistoryData;
 
@@ -27,7 +27,7 @@ export const Feed = ({ history }) => {
         <Subheader>{previously}</Subheader>
         {entries.map(e => (
           <Fragment key={e.id}>
-            <HistoryCard {...e} navigateTo={navigateTo(e.id)} />
+            <HistoryCard {...e} />
             <Divider />
           </Fragment>
         ))}
@@ -35,4 +35,4 @@ export const Feed = ({ history }) => {
     </div>
   );
 };
-export default Feed;
+export default History;

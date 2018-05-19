@@ -15,6 +15,12 @@ const AsyncHome = Loadable({
   delay: 600
 });
 
+const AsyncHistory = Loadable({
+  loader: () => import("./containers/History"),
+  loading: Loader,
+  delay: 600
+});
+
 const AsyncFeed = Loadable({
   loader: () => import("./containers/Feed"),
   loading: Loader,
@@ -99,6 +105,11 @@ export class Routes extends PureComponent {
           <Fragment>
             <TopBar />
             <Route
+              path="/History/:id?"
+              exact
+              render={this.renderWithUser(AsyncHistory)}
+            />
+            <Route
               path="/EventPage/:id"
               exact
               render={this.renderWithUser(EventPage)}
@@ -128,6 +139,11 @@ export class Routes extends PureComponent {
                 />,
                 <Route
                   path="/"
+                  exact
+                  render={this.renderWithUser(AsyncFeed)}
+                />,
+                <Route
+                  path="/"
                   key="feed"
                   exact
                   render={this.renderWithUser(AsyncFeed)}
@@ -144,21 +160,21 @@ export class Routes extends PureComponent {
               />
             )}
 
-						<Route
-							path="/logout"
-							exact
-							render={props => {
-								this.setUser(null);
-								props.history.replace('/');
-								return null;
-							}}
-						/>
-						<BottomBar user={this.state.user} />
-					</Fragment>
-				</BrowserRouter>
-			</MuiThemeProvider>
-		);
-	}
+            <Route
+              path="/logout"
+              exact
+              render={props => {
+                this.setUser(null);
+                props.history.replace("/");
+                return null;
+              }}
+            />
+            <BottomBar user={this.state.user} />
+          </Fragment>
+        </BrowserRouter>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default Routes;

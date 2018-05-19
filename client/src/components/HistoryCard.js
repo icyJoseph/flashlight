@@ -26,7 +26,6 @@ export const HistoryCard = ({
         </p>
       }
       secondaryTextLines={2}
-      onClick={navigateTo}
     />
   );
 };
