@@ -18,13 +18,13 @@ function alternate(events) {
           ...info,
           image: jedi,
           left: true,
-          id: `${i}-info.title`,
+          id: `${i}`,
           featured: i % 3 === 0
         }
       : {
           ...info,
           image: jedi,
-          id: `${i}-info.title`,
+          id: `${i}`,
           left: false,
           featured: i % 3 === 0
         };
