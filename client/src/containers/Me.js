@@ -4,6 +4,7 @@ import Subheader from "material-ui/Subheader";
 import Divider from "material-ui/Divider";
 import Checkbox from "material-ui/Checkbox";
 import Toggle from "material-ui/Toggle";
+import RaisedButton from "material-ui/RaisedButton";
 import RangeSlider from "../components/RangeSlider";
 
 export class Me extends Component {
@@ -62,6 +63,12 @@ export class Me extends Component {
           <Subheader>Priority Interruptions</Subheader>
           <ListItem primaryText="Events reminders" rightToggle={<Toggle />} />
         </List>
+        <RaisedButton
+          style={{ marginTop: "15px" }}
+          onClick={() => this.props.history.push("/logout")}
+        >
+          Logout
+        </RaisedButton>
       </div>
     );
   }

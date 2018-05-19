@@ -7,6 +7,7 @@ import TopBar from "./components/TopBar";
 import BottomBar from "./components/BottomBar";
 import Loader from "./components/Loader";
 import EventPage from "./components/EventPage";
+import NotLoginSplash from "./components/NotLoginSplash";
 
 const AsyncHome = Loadable({
   loader: () => import("./containers/Home"),
@@ -46,10 +47,13 @@ const asyncHistory = Loadable({
 
 export class Routes extends PureComponent {
   state = {
-    user: null
+    user: JSON.parse(localStorage.getItem("user"))
   };
 
-  setUser = user => this.setState({ user });
+  setUser = user => {
+    localStorage.setItem("user", JSON.stringify(user));
+    this.setState({ user });
+  };
 
   renderWithUser = Component => {
     return props => <Component {...props} user={this.state.user} />;
@@ -68,13 +72,41 @@ export class Routes extends PureComponent {
             />
             <Route path="/history/:id?" exact component={asyncHistory} />
             <Route path="/me/:id?" exact component={asyncMe} />
-            <Route path="/" exact render={this.renderWithUser(AsyncHome)} />
-            <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+
             <Route path="/signup" exact component={AsyncSignup} />
             <Route
               path="/login"
               exact
               render={props => <AsyncLogin {...props} setUser={this.setUser} />}
+            />
+
+            {this.state.user != null ? (
+              [
+                <Route
+                  path="/"
+                  exact
+                  render={this.renderWithUser(AsyncHome)}
+                />,
+                <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+              ]
+            ) : (
+              <Route
+                path="/"
+                exact
+                render={props => (
+                  <NotLoginSplash {...props} setUser={this.setUser} />
+                )}
+              />
+            )}
+
+            <Route
+              path="/logout"
+              exact
+              render={props => {
+                this.setUser(null);
+                props.history.replace("/");
+                return null;
+              }}
             />
             <BottomBar />
           </Fragment>
