@@ -10,11 +10,13 @@ export const EventCard = ({
   description,
   image,
   color,
-  left
+  left,
+  navigateTo
 }) => {
   const avatar = left
     ? { leftAvatar: <Avatar src={image} />, rightIconButton: cardMenu }
     : { rightAvatar: <Avatar src={image} />, leftIcon: cardMenu };
+
   return (
     <ListItem
       {...avatar}
@@ -27,6 +29,7 @@ export const EventCard = ({
         </p>
       }
       secondaryTextLines={2}
+      onClick={navigateTo}
     />
   );
 };

@@ -14,15 +14,22 @@ router.post("/create", (req, res) => {
 	
 	if (getUsers().some(({ username }) => username === body.username)) {
 		console.log('Username is taken');
+		res.sendStatus(409);
+		return;
+	} 
+
+	if (!req.body.username || !req.body.password) {
+		console.log('Invalid body');
 		res.sendStatus(400);
-	} else {
+		return;
+	}
+
 
   const user = createUser(body);
 
   console.log(`created user: ${JSON.stringify(user)}`);
 
   res.send(user);
-	}
 });
 
 // Get user by id

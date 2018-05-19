@@ -37,7 +37,7 @@ export class BottomBar extends Component {
     const flashlight = paths[1];
     return path === flashlight
       ? this.toggleFlashLight()
-      : this.props.history.push(path === "history" ? "/" : path);
+      : this.props.history.push(path);
   }
 
   getSelectedIndex() {
