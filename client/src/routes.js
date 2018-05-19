@@ -99,15 +99,27 @@ export class Routes extends PureComponent {
               [
                 <Route
                   path="/"
+                  key="home"
                   exact
                   render={this.renderWithUser(AsyncHome)}
                 />,
-                <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+                <Route
+                  path="/"
+                  exact
+                  render={this.renderWithUser(AsyncFeed)}
+                />,
+                <Route
+                  path="/"
+                  key="feed"
+                  exact
+                  render={this.renderWithUser(AsyncFeed)}
+                />
               ]
             ) : (
               <Route
                 path="/"
                 exact
+                key="splash"
                 render={props => (
                   <NotLoginSplash {...props} setUser={this.setUser} />
                 )}

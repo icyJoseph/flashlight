@@ -31,6 +31,7 @@ class AddEvent extends Component {
 			method: 'POST',
 			body: JSON.stringify({
 				title: this.state.title,
+				author: this.props.user,
 				location: this.state.location,
 				participants: [this.props.user.id],
 				description: this.state.description,

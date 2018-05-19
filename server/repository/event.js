@@ -5,6 +5,8 @@ const FILENAME = 'events.json';
 let didLoad = false;
 const events = [];
 
+let eventId = 0;
+
 export function restoreEvents() {
   return new Promise(resolve => {
     fs.readFile(FILENAME, 'utf8', (err, txt) => {
@@ -16,6 +18,7 @@ export function restoreEvents() {
         if (txt) {
           events.push(...JSON.parse(txt));
         }
+        eventId = Math.max(0, ...events.map(({ id }) => id));
         resolve(events);
       }
     });
@@ -29,6 +32,8 @@ export function saveEvents() {
 }
 
 export function createEvent(event) {
+  event.id = eventId;
+  ++eventId;
   events.push(event);
 }
 

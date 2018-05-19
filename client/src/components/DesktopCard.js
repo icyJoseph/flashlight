@@ -21,7 +21,6 @@ const DesktopCard = ({ events, navigateTo }) => {
       <GridList cellHeight={120} padding={1} style={styles.gridList} cols={2}>
         <Subheader>{today}</Subheader>
         {events.map(e => {
-          const [{ name, lastname }] = e.person;
           return (
             <GridTile
               key={e.id}
@@ -30,7 +29,7 @@ const DesktopCard = ({ events, navigateTo }) => {
                 <span>
                   with{" "}
                   <b>
-                    {name} {lastname}
+                    {e.author}
                   </b>
                 </span>
               }
@@ -38,7 +37,7 @@ const DesktopCard = ({ events, navigateTo }) => {
               rows={e.featured ? 2 : 1}
               onClick={navigateTo(e.id)}
             >
-              <img src={e.image} alt={`${name} face`} />
+              <img src={e.image} alt={`${e.author} face`} />
             </GridTile>
           );
         })}

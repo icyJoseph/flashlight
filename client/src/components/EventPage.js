@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import {
   Card,
   CardActions,
@@ -9,51 +9,74 @@ import {
 import FlatButton from "material-ui/FlatButton";
 
 import { info } from "../constants";
+import { Loader } from "./Loader";
+import jedi from "../constants/img/jedi.png";
 
-export const EventPage = ({
-  match: {
-    params: { id }
-  },
-  history
-}) => {
-  const [card] = info.filter(e => e.id === id);
-  const maker = card.person.slice(0, 1);
-  const others = card.person.slice(1);
-
-  const goHome = () => {
-    return history.push("/");
+export class EventPage extends PureComponent {
+  state = {
+    eventInfo: []
   };
 
-  return (
-    <Card>
-      <CardHeader
-        title={card.title}
-        subtitle={`${maker.name} ${maker.lastname}`}
-        avatar={card.image}
-      />
-      <CardText>{card.description}</CardText>
-      <CardActions>
-        <FlatButton label="Take" onClick={goHome} />
-        <FlatButton label="Not now" onClick={goHome} />
-      </CardActions>
-      <CardTitle
-        title="Who else is joining?"
-        subtitle={
-          others.length === 0 ? (
-            <p>Nobody else</p>
-          ) : (
-            <ul>
-              {others.map(({ name, lastname }) => (
-                <li key={name}>
-                  {name} {lastname}
-                </li>
-              ))}
-            </ul>
-          )
-        }
-      />
-    </Card>
-  );
-};
+  componentDidMount() {
+    fetch("/api/event/for-me", {
+      method: "POST",
+      body: JSON.stringify(this.props.user),
+      headers: new Headers({ "content-type": "application/json" })
+    })
+      .then(res => res.json())
+      .then(events => this.setState({ eventInfo: events }))
+      .catch(e => console.error(e));
+  }
+
+  render() {
+    const {
+      match: {
+        params: { id }
+      },
+      history
+    } = this.props;
+
+    if (this.state.eventInfo.length == 0) {
+      return <Loader delay={600} />;
+    }
+
+    console.log(this.state.eventInfo);
+
+    const [card] = this.state.eventInfo.filter(e => e.id == id);
+    console.log(id);
+    console.log(card);
+    const author = card.author;
+    const others = [];
+
+    const goHome = () => {
+      return history.push("/");
+    };
+
+    return (
+      <Card>
+        <CardHeader
+          title={card.title}
+          subtitle={`${author}`}
+          avatar={jedi}
+        />
+        <CardText>{card.description}</CardText>
+        <CardActions>
+          <FlatButton label="Take" onClick={goHome} />
+          <FlatButton label="Not now" onClick={goHome} />
+        </CardActions>
+        <CardTitle
+          title="Who else is joining?"
+          subtitle={
+            others.length === 0 ? (
+              <p>Nobody else</p>
+            ) : (
+              <ul>{others.map(({ name }) => <li key={name}>{name}</li>)}</ul>
+            )
+          }
+        />
+      </Card>
+    );
+  }
+}
 
 export default EventPage;
