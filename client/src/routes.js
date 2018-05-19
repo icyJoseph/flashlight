@@ -118,11 +118,6 @@ export class Routes extends PureComponent {
                 />,
                 <Route
                   path="/"
-                  exact
-                  render={this.renderWithUser(AsyncFeed)}
-                />,
-                <Route
-                  path="/"
                   key="feed"
                   exact
                   render={this.renderWithUser(AsyncFeed)}
