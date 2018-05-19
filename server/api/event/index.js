@@ -12,18 +12,24 @@ router.get('/list', (req, res) => {
 router.post('/create', (req, res) => {
 	if (req.body != null) {
 		createEvent(
-			eventCreator(req.body.title, req.body.location, req.body.participants)
+			eventCreator(
+				req.body.title,
+				req.body.location,
+				req.body.participants,
+				req.body.description,
+				req.body.activity
+			)
 		);
 	}
-	// Should add redirect here
-	res.send('Event Created!');
 });
 
-function eventCreator(title, location, participants) {
+function eventCreator(title, location, participants, description, activity) {
 	const event = {
 		title: title,
 		location: location,
-		participants: participants
+		participants: participants,
+		description: description,
+		activity: activity
 	};
 
 	return event;
