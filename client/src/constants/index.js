@@ -3,6 +3,8 @@ import { darkBlack } from "material-ui/styles/colors";
 
 export const paths = ["history", "flashlight", "add", "me"];
 
+export const today = "Today";
+
 export const info = {
   title: "Brunch this weekend?",
   person: { name: "Brendan", lastname: "Lim" },
