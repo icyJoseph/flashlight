@@ -38,6 +38,12 @@ const AsyncLogin = Loadable({
   delay: 600
 });
 
+const asyncHistory = Loadable({
+  loader: () => import("./containers/History"),
+  loading: Loader,
+  delay: 600
+});
+
 export class Routes extends PureComponent {
   state = {
     user: null
@@ -60,6 +66,7 @@ export class Routes extends PureComponent {
               exact
               render={this.renderWithUser(EventPage)}
             />
+            <Route path="/history/:id?" exact component={asyncHistory} />
             <Route path="/me/:id?" exact component={asyncMe} />
             <Route path="/" exact render={this.renderWithUser(AsyncHome)} />
             <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
