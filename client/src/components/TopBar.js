@@ -18,8 +18,7 @@ export const TopBar = ({ history }) => {
     <Fragment>
       <AppBar
         title="Flashlight"
-        onTitleClick={navigateToHome}
-        onLeftIconButtonClick={navigateToHome}
+        onClick={navigateToHome}
         iconElementLeft={HomeIcon}
         iconStyleLeft={{
           flex: 1,
@@ -36,7 +35,7 @@ export const TopBar = ({ history }) => {
           alignItems: "flex-start",
           justifyContent: "center"
         }}
-        style={{ backgroundColor: "dodgerblue" }}
+        style={{ backgroundColor: "dodgerblue", cursor: "pointer" }}
       />
     </Fragment>
   );
