@@ -20,12 +20,19 @@ const asyncFeed = Loadable({
   delay: 600
 });
 
+const asyncMe = Loadable({
+  loader: () => import("./containers/Me"),
+  loading: Loader,
+  delay: 600
+});
+
 export const Routes = () => (
   <MuiThemeProvider>
     <BrowserRouter>
       <Fragment>
         <TopBar />
         <Route path="/EventPage/:id" exact component={EventPage} />
+        <Route path="/me/:id?" exact component={asyncMe} />
         <Route path="/" exact component={asyncHome} />
         <Route path="/" exact component={asyncFeed} />
         <BottomBar />
