@@ -51,6 +51,12 @@ const AsyncAddEvent = Loadable({
   delay: 600
 });
 
+const AsyncInterests = Loadable({
+	loader: () => import('./containers/ChangeInterests'),
+	loading: Loader,
+	delay: 600
+});
+
 export class Routes extends PureComponent {
   state = {
     user: JSON.parse(localStorage.getItem("user"))
@@ -65,6 +71,33 @@ export class Routes extends PureComponent {
     return props => <Component {...props} user={this.state.user} />;
   };
 
+<<<<<<< HEAD
+	render() {
+		return (
+			<MuiThemeProvider>
+				<BrowserRouter>
+					<Fragment>
+						<TopBar />
+						<Route
+							path="/EventPage/:id"
+							exact
+							render={this.renderWithUser(EventPage)}
+						/>
+
+						<Route path="/me/:id?" exact component={asyncMe} />
+						<Route path="/interest" exact component={AsyncInterests} />
+						<Route path="/signup" exact component={AsyncSignup} />
+						<Route
+							path="/add"
+							exact
+							render={this.renderWithUser(AsyncAddEvent)}
+						/>
+						<Route
+							path="/login"
+							exact
+							render={props => <AsyncLogin {...props} setUser={this.setUser} />}
+						/>
+=======
   render() {
     return (
       <MuiThemeProvider>
@@ -94,6 +127,7 @@ export class Routes extends PureComponent {
               exact
               render={props => <AsyncLogin {...props} setUser={this.setUser} />}
             />
+>>>>>>> f525ffcc2438b0d0fa7f8e79621cf9975e1c2f15
 
             {this.state.user != null ? (
               [
