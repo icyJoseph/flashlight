@@ -13,7 +13,7 @@ export const EventCard = ({
   left
 }) => {
   const avatar = left
-    ? { leftAvatar: <Avatar src={image} />, rightIcon: cardMenu }
+    ? { leftAvatar: <Avatar src={image} />, rightIconButton: cardMenu }
     : { rightAvatar: <Avatar src={image} />, leftIcon: cardMenu };
   return (
     <ListItem
