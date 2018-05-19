@@ -1,9 +1,9 @@
-import express from 'express';
-import api from './api';
+import express from "express";
+import api from "./api";
 
-import { saveUsers, restoreUsers } from './user-repository';
-import { saveSearches, restoreSearches } from './search-repository';
-import { saveEvents, restoreEvents } from './event-repository';
+import { saveUsers, restoreUsers } from "./repository/user";
+import { saveSearches, restoreSearches } from "./repository/search";
+import { saveEvents, restoreEvents } from "./repository/event";
 
 process.stdin.resume();
 
@@ -12,36 +12,35 @@ saveDataOnExit();
 
 const app = express();
 
-app.use('/api', api);
+app.use("/api", api);
 
-app.listen(3333, () => console.log('Started server'));
+app.listen(3333, () => console.log("Started server"));
 
 function restoreData() {
-	Promise.all([restoreUsers(), restoreEvents(), restoreSearches()])
-		.then(() => console.log('Restored data'))
-		.catch(err => console.error(`Could not restore data: ${err}`));
+  Promise.all([restoreUsers(), restoreEvents(), restoreSearches()])
+    .then(() => console.log("Restored data"))
+    .catch(err => console.error(`Could not restore data: ${err}`));
 }
 
 function saveDataOnExit() {
-	process.on('SIGINT', () => {
-		saveAll();
-		process.exit(0);
-	});
-	process.on('exit', () => {
-		saveAll();
-		process.exit(0);
-	});
-	process.on('uncaughtException', e => {
-		console.error(e);
-		saveAll();
+  process.once("SIGINT", () => {
+    saveAll();
+    process.exit(0);
   });
-  process.on('SIGUSR2', saveAll);
+  process.on("uncaughtException", e => {
+    console.error(e);
+    saveAll();
+  });
+  process.once("SIGUSR2", () => {
+    saveAll();
+    process.exit(0);
+  });
 }
 
 function saveAll() {
-	console.log('\nSaving!\n');
+  console.log("Saving!");
 
-	saveUsers();
-	saveSearches();
-	saveEvents();
+  saveUsers();
+  saveSearches();
+  saveEvents();
 }
