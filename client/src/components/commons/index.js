@@ -13,8 +13,7 @@ export const iconButtonElement = (
 
 export const cardMenu = (
   <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
+    <MenuItem>Pin</MenuItem>
+    <MenuItem>Hide</MenuItem>
   </IconMenu>
 );

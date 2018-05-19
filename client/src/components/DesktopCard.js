@@ -32,7 +32,6 @@ const DesktopCard = ({ events, navigateTo }) => {
             }
             cols={e.featured ? 2 : 1}
             rows={e.featured ? 2 : 1}
-            actionIcon={cardMenu}
             onClick={navigateTo(e.id)}
           >
             <img src={e.image} alt={`${e.person.name} face`} />
