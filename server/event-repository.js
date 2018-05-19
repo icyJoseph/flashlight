@@ -11,10 +11,10 @@ export function restoreEvents() {
         console.error('Could not open ' + FILENAME);
         resolve(events);
       } else {
-        events.push(...JSON.parse(txt));
+        if (txt) {
+          events.push(...JSON.parse(txt));
+        }
         resolve(events);
-
-        console.log(events);
       }
     });
   });

@@ -11,10 +11,10 @@ export function restoreSearches() {
         console.error('Could not open ' + FILENAME);
         resolve([]);
       } else {
-        searches.push(...JSON.parse(txt));
+        if (txt) {
+          searches.push(...JSON.parse(txt));
+        }
         resolve(searches);
-
-        console.log(searches);
       }
     });
   });

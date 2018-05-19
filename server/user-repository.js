@@ -11,10 +11,10 @@ export function restoreUsers() {
         console.error('Could not open ' + FILENAME);
         resolve(users);
       } else {
-        users.push(...JSON.parse(txt));
+        if (txt) {
+          users.push(...JSON.parse(txt));
+        }
         resolve(users);
-
-        console.log(users);
       }
     });
   });

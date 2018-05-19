@@ -34,11 +34,12 @@ function saveDataOnExit() {
 	process.on('uncaughtException', e => {
 		console.error(e);
 		saveAll();
-	});
+  });
+  process.on('SIGUSR2', saveAll);
 }
 
 function saveAll() {
-	console.log('Saving!');
+	console.log('\nSaving!\n');
 
 	saveUsers();
 	saveSearches();
