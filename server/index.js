@@ -1,4 +1,8 @@
 import express from "express";
+import bodyParser from "body-parser";
+import expressSession from "express-session";
+import FileStore from "session-file-store";
+
 import api from "./api";
 
 import { saveUsers, restoreUsers } from "./repository/user";
@@ -11,8 +15,7 @@ restoreData();
 saveDataOnExit();
 
 const app = express();
-
-app.use("/api", api);
+setupApp(app);
 
 app.listen(3333, () => console.log("Started server"));
 
@@ -43,4 +46,16 @@ function saveAll() {
   saveUsers();
   saveSearches();
   saveEvents();
+}
+
+function setupApp(app) {
+  app.use(bodyParser.json());
+  app.use(expressSession({
+    secret: 'top secret',
+    resave: false,
+    saveUninitialized: false,
+    store: new (FileStore(expressSession))()
+  }));
+
+  app.use("/api", api);
 }

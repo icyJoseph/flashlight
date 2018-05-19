@@ -1,20 +1,55 @@
-import { Router } from 'express';
+import { Router } from "express";
+
+import { createUser, getUsers } from "../../repository/user";
 
 const router = Router();
 
-// Create user
-router.get('/create', (req, res) => {
-	res.send('create user');
+// Input: user without id: {username, password }
+// 
+// Output: 
+// 200: User with id
+// 400: Username taken
+router.post("/create", (req, res) => {
+	const body = req.body;
+	
+	if (getUsers().some(({ username }) => username === body.username)) {
+		console.log('Username is taken');
+		res.sendStatus(400);
+	} else {
+
+  const user = createUser(body);
+
+  console.log(`created user: ${JSON.stringify(user)}`);
+
+  res.send(user);
+	}
 });
 
 // Get user by id
-router.get('/:id', (req, res) => {
-	res.send('get user with id: ' + req.params.id);
+router.get("/:id", (req, res) => {
+  res.send("get user with id: " + req.params.id);
 });
 
-// login a user
-router.get('/login', (req, res) => {
-	res.send('login user');
+// Input: {username, password}
+// Output: User (and cookie)
+router.post("/login", (req, res) => {
+  const matched = getUsers().filter(
+    ({ username, password }) =>
+      username == req.body.username && password == req.body.password
+  );
+
+  if (matched.length == 0) {
+    console.log("Could not find user");
+
+    res.sendStatus(404);
+  } else {
+    const user = matched[0];
+
+    console.log(`Logged in ${JSON.stringify(user)}`);
+
+    req.session.user = user;
+    res.send(user);
+  }
 });
 
 export default router;

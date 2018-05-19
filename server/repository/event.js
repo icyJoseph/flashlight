@@ -2,11 +2,13 @@ import fs from 'fs';
 
 const FILENAME = 'events.json';
 
+let didLoad = false;
 const events = [];
 
 export function restoreEvents() {
   return new Promise(resolve => {
     fs.readFile(FILENAME, 'utf8', (err, txt) => {
+      didLoad = true;
       if (err) {
         console.error('Could not open ' + FILENAME);
         resolve(events);
@@ -21,8 +23,8 @@ export function restoreEvents() {
 }
 
 export function saveEvents() {
-  if (events) {
-    fs.writeFileSync(FILENAME, events.toString());
+  if (didLoad) {
+    fs.writeFileSync(FILENAME, JSON.stringify(events));
   }
 }
 

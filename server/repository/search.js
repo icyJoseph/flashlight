@@ -2,11 +2,13 @@ import fs from 'fs';
 
 const FILENAME = 'searches.json';
 
+let didLoad = false;
 const searches = [];
 
 export function restoreSearches() {
   return new Promise(resolve => {
     fs.readFile(FILENAME, 'utf8', (err, txt) => {
+      didLoad = true;
       if (err) {
         console.error('Could not open ' + FILENAME);
         resolve([]);
@@ -21,8 +23,8 @@ export function restoreSearches() {
 }
 
 export function saveSearches() {
-  if (searches) {
-    fs.writeFileSync(FILENAME, searches.toString());
+  if (didLoad) {
+    fs.writeFileSync(FILENAME, JSON.stringify(searches));
   }
 }
 
