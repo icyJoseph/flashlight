@@ -1,4 +1,5 @@
-import express from "express";
+import express from 'express';
+import api from './api';
 
 import { saveUsers, restoreUsers } from "./user-repository";
 import { saveSearches, restoreSearches } from "./search-repository";
@@ -11,10 +12,9 @@ saveDataOnExit();
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+app.use('/api', api);
 
+<<<<<<< HEAD
 app.get("/api", (req, res) => {
   res.send("API response");
 });
@@ -40,3 +40,6 @@ function saveAll() {
   saveSearches();
   saveEvents();
 }
+=======
+app.listen(3333, () => console.log('Started server'));
+>>>>>>> api
