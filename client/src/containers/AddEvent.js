@@ -16,7 +16,7 @@ class AddEvent extends Component {
 				this.setState({ description: e.target.value });
 				break;
 			case 'activity':
-				this.setState({ activity: e.target.value });
+				this.setState({ activity: e });
 				break;
 			default:
 				break;

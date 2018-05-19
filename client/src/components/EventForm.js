@@ -1,5 +1,8 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
+
+import interests from '../constants/interests';
 
 export const EventForm = ({
 	handleChange,
@@ -23,26 +26,29 @@ export const EventForm = ({
 			<TextField
 				id="title"
 				value={title}
-				placeholder="Title"
+				floatingLabelText="Title"
 				onChange={e => handleChange('title', e)}
 			/>
 			<TextField
 				id="location"
 				value={location}
-				placeholder="Location"
+				floatingLabelText="Location"
 				onChange={e => handleChange('location', e)}
 			/>
 			<TextField
 				id="description"
 				value={description}
-				placeholder="Description"
+				floatingLabelText="Description"
 				onChange={e => handleChange('description', e)}
 			/>
-			<TextField
-				id="activity"
-				value={activity}
-				placeholder="Activity"
-				onChange={e => handleChange('activity', e)}
+			<AutoComplete
+				floatingLabelText="Activity"
+				searchText={activity}
+				onUpdateInput={e => handleChange('activity', e)}
+				onNewRequest={e => handleChange('activity', e)}
+				dataSource={interests}
+				filter={AutoComplete.caseInsensitiveFilter}
+				openOnFocus={true}
 			/>
 			<button id="submit" onClick={e => onSubmit(e)}>
 				Submit!
