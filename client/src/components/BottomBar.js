@@ -7,6 +7,8 @@ import {
 import Paper from "material-ui/Paper";
 import { withRouter } from "react-router-dom";
 
+import FlashLight from "./FlashLight";
+
 import { paths } from "../constants";
 
 const History = <FontIcon className="material-icons">history</FontIcon>;
@@ -15,18 +17,36 @@ const Add = <FontIcon className="material-icons">library_add</FontIcon>;
 const Me = <FontIcon className="material-icons">person</FontIcon>;
 
 export class BottomBar extends Component {
+  state = { flashlightOpen: false };
   select = this.select.bind(this);
-  select(path) {
-    return this.props.history.push(path);
+  toggleFlashLight = this.toggleFlashLight.bind(this);
+  closeFlashLight = this.closeFlashLight.bind(this);
+  getSelectedIndex = this.getSelectedIndex.bind(this);
+
+  toggleFlashLight() {
+    return this.setState(prevState => ({
+      flashlightOpen: !prevState.flashlightOpen
+    }));
   }
 
-  getSelectedIndex = this.getSelectedIndex.bind(this);
+  closeFlashLight() {
+    return this.setState({ flashlightOpen: false });
+  }
+
+  select(path) {
+    const flashlight = paths[1];
+    return path === flashlight
+      ? this.toggleFlashLight()
+      : this.props.history.push(path === "history" ? "/" : path);
+  }
+
   getSelectedIndex() {
     return paths.indexOf(this.props.location.pathname);
   }
 
   render() {
     const [history, flashlight, add, me] = paths;
+    const { flashlightOpen } = this.state;
     return (
       <Paper
         zDepth={1}
@@ -37,6 +57,7 @@ export class BottomBar extends Component {
           bottom: 0
         }}
       >
+        <FlashLight open={flashlightOpen} handleClose={this.closeFlashLight} />
         <BottomNavigation selectedIndex={this.getSelectedIndex()}>
           <BottomNavigationItem
             label="History"
