@@ -6,14 +6,13 @@ import { cardMenu } from "./commons";
 
 export const EventCard = ({
   title,
-  person,
+  author,
   description,
   image,
   color,
   left,
   navigateTo
 }) => {
-  const [{ name, lastname }] = person;
   const avatar = left
     ? { leftAvatar: <Avatar src={image} />, rightIconButton: cardMenu }
     : { rightAvatar: <Avatar src={image} />, leftIcon: cardMenu };
@@ -21,7 +20,7 @@ export const EventCard = ({
   return (
     <ListItem
       {...avatar}
-      primaryText={`${name} ${lastname}`}
+      primaryText={`${author || 'someone'}`}
       secondaryText={
         <p onClick={navigateTo}>
           <span style={{ color: color }}>{title}</span>
