@@ -27,7 +27,12 @@ function getMatch(search) {
 }
 
 function isWithinAgeSpan(s1, s2) {
-  return true;
+  const ageSpan = s2.ageSpan || {upper: Number.POSITIVE_INFINITY, lower: Number.NEGATIVE_INFINITY};
+  const userAge = s1.participants
+    .map(id => getUser(id))
+    .map(user => user.age || 0)
+    .reduce((p, c) => p + c, 0)/s1.participants.length;
+  return userAge >= ageSpan.lower && userAge <= ageSpan.upper;  
 }
 
 function isWithinDistance(s1, s2) {
