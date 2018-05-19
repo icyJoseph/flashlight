@@ -46,6 +46,7 @@ export const EventForm = ({
 				searchText={activity}
 				onUpdateInput={e => handleChange('activity', e)}
 				onNewRequest={e => handleChange('activity', e)}
+				maxSearchResults={3}
 				dataSource={interests}
 				filter={AutoComplete.caseInsensitiveFilter}
 				openOnFocus={true}

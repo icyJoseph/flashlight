@@ -45,6 +45,12 @@ const AsyncAddEvent = Loadable({
 	delay: 600
 });
 
+const AsyncInterests = Loadable({
+	loader: () => import('./containers/ChangeInterests'),
+	loading: Loader,
+	delay: 600
+});
+
 export class Routes extends PureComponent {
 	state = {
 		user: JSON.parse(localStorage.getItem('user'))
@@ -70,8 +76,9 @@ export class Routes extends PureComponent {
 							exact
 							render={this.renderWithUser(EventPage)}
 						/>
-						<Route path="/me/:id?" exact component={asyncMe} />
 
+						<Route path="/me/:id?" exact component={asyncMe} />
+						<Route path="/interest" exact component={AsyncInterests} />
 						<Route path="/signup" exact component={AsyncSignup} />
 						<Route
 							path="/add"
