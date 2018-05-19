@@ -62,5 +62,5 @@ export const search = {
 };
 
 export const HistoryData = {
-  entries: [search, info]
+  entries: [search, ...info]
 };
