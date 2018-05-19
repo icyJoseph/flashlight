@@ -1,27 +1,52 @@
 import React, { Component } from "react";
+import Interest from "../components/Interest";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {
+    interests: [
+      { title: "Sports", shorthand: "Sp" },
+      { title: "Dancing", shorthand: "Da" },
+      { title: "Movies", shorthand: "Mv" }
+    ]
+  };
 
-  componentDidMount() {
-    fetch("/api")
-      .then(res => res.text())
-      .then(txt => this.setState({ txt }));
-  }
+  // componentDidMount() {
+  //   fetch("/api")
+  //     .then(res => res.text())
+  //     .then(txt => this.setState({ txt }));
+  // }
 
   render() {
+    const { interests } = this.state;
     return (
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <header>
-          <h1>Welcome to React</h1>
+          <h1 style={{ fontSize: "16pt", fontWeight: "lighter", margin: 5 }}>
+            Who do we meet next?{" "}
+            <span role="img" aria-label="next">
+              ⏭
+            </span>
+          </h1>
         </header>
-        <p>
-          {this.state.txt ||
-            "To get started, edit <code>src/App.js</code> and save to reload."}
-        </p>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+        >
+          {interests.map(interest => (
+            <Interest key={interest.title} {...interest} />
+          ))}
+        </div>
       </div>
     );
   }
