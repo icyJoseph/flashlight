@@ -41,10 +41,13 @@ const AsyncLogin = Loadable({
 
 export class Routes extends PureComponent {
   state = {
-    user: null
+    user: JSON.parse(localStorage.getItem("user"))
   };
 
-  setUser = user => this.setState({ user });
+  setUser = user => {
+    localStorage.setItem("user", JSON.stringify(user));
+    this.setState({ user });
+  };
 
   renderWithUser = Component => {
     return props => <Component {...props} user={this.state.user} />;
@@ -88,6 +91,16 @@ export class Routes extends PureComponent {
                 )}
               />
             )}
+
+            <Route
+              path="/logout"
+              exact
+              render={props => {
+                this.setUser(null);
+                props.history.replace("/");
+                return null;
+              }}
+            />
             <BottomBar />
           </Fragment>
         </BrowserRouter>

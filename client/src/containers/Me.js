@@ -4,8 +4,9 @@ import Subheader from "material-ui/Subheader";
 import Divider from "material-ui/Divider";
 import Checkbox from "material-ui/Checkbox";
 import Toggle from "material-ui/Toggle";
+import RaisedButton from "material-ui/RaisedButton";
 
-export const Me = () => (
+export const Me = props => (
   <div
     style={{
       flex: 1,
@@ -39,6 +40,12 @@ export const Me = () => (
       <Subheader>Priority Interruptions</Subheader>
       <ListItem primaryText="Events reminders" rightToggle={<Toggle />} />
     </List>
+    <RaisedButton
+      style={{ marginTop: "15px" }}
+      onClick={() => props.history.push("/logout")}
+    >
+      Logout
+    </RaisedButton>
   </div>
 );
 
