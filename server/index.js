@@ -1,13 +1,8 @@
-import express from "express";
+import express from 'express';
+import api from 'api';
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+app.get('/api', api);
 
-app.get("/api", (req, res) => {
-  res.send("API response");
-});
-
-app.listen(3333, () => console.log("Started server"));
+app.listen(3333, () => console.log('Started server'));
