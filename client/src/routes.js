@@ -7,6 +7,7 @@ import TopBar from "./components/TopBar";
 import BottomBar from "./components/BottomBar";
 import Loader from "./components/Loader";
 import EventPage from "./components/EventPage";
+import NotLoginSplash from "./components/NotLoginSplash";
 
 const AsyncHome = Loadable({
   loader: () => import("./containers/Home"),
@@ -61,14 +62,32 @@ export class Routes extends PureComponent {
               render={this.renderWithUser(EventPage)}
             />
             <Route path="/me/:id?" exact component={asyncMe} />
-            <Route path="/" exact render={this.renderWithUser(AsyncHome)} />
-            <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+
             <Route path="/signup" exact component={AsyncSignup} />
             <Route
               path="/login"
               exact
               render={props => <AsyncLogin {...props} setUser={this.setUser} />}
             />
+
+            {this.state.user != null ? (
+              [
+                <Route
+                  path="/"
+                  exact
+                  render={this.renderWithUser(AsyncHome)}
+                />,
+                <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+              ]
+            ) : (
+              <Route
+                path="/"
+                exact
+                render={props => (
+                  <NotLoginSplash {...props} setUser={this.setUser} />
+                )}
+              />
+            )}
             <BottomBar />
           </Fragment>
         </BrowserRouter>
