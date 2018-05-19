@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createUser, getUsers } from "../../repository/user";
+import { createUser, getUsers, getUser } from "../../repository/user";
 
 const router = Router();
 
@@ -34,7 +34,10 @@ router.post("/create", (req, res) => {
 
 // Get user by id
 router.get("/:id", (req, res) => {
-  res.send("get user with id: " + req.params.id);
+  const userId = req.params.id;
+  const user = getUser(userId);
+  console.log(user);
+  res.send(getUser(userId));
 });
 
 // Input: {username, password}

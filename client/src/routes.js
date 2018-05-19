@@ -112,7 +112,7 @@ export class Routes extends PureComponent {
 								return null;
 							}}
 						/>
-						<BottomBar />
+						<BottomBar user={this.state.user} />
 					</Fragment>
 				</BrowserRouter>
 			</MuiThemeProvider>

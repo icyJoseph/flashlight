@@ -57,7 +57,7 @@ export class BottomBar extends Component {
           bottom: 0
         }}
       >
-        <FlashLight open={flashlightOpen} handleClose={this.closeFlashLight} />
+        <FlashLight open={flashlightOpen} handleClose={this.closeFlashLight} user={this.props.user} />
         <BottomNavigation selectedIndex={this.getSelectedIndex()}>
           <BottomNavigationItem
             label="History"
