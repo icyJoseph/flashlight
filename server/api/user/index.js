@@ -57,7 +57,8 @@ router.post("/login", (req, res) => {
 
     console.log(`Logged in ${JSON.stringify(user)}`);
 
-    req.session.user = user;
+		req.session.user = user;
+
     res.send(user);
   }
 });
