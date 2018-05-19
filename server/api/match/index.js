@@ -6,7 +6,7 @@ const router = Router();
 
 // Match for an event
 router.post('/search', (req, res) => {
-  const search = req.body.search;
+  const search = req.body;
   const match = getMatch(search);
   res.send({
     match

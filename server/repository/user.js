@@ -58,5 +58,5 @@ export function updateUser(userId, user) {
 }
 
 export function getUser(userId) {
-  return users.find(({ id }) => id === userId);
+  return users.find(({ id }) => id == userId);
 }
