@@ -45,23 +45,21 @@ const AsyncAddEvent = Loadable({
 	delay: 600
 });
 
-export class Routes extends PureComponent {
-<<<<<<< HEAD
-  state = {
-    user: JSON.parse(localStorage.getItem("user"))
-  };
+const asyncHistory = Loadable({
+	loader: () => import('./containers/History'),
+	loading: Loader,
+	delay: 600
+});
 
-  setUser = user => {
-    localStorage.setItem("user", JSON.stringify(user));
-    this.setState({ user });
-  };
-=======
+export class Routes extends PureComponent {
 	state = {
-		user: null
+		user: JSON.parse(localStorage.getItem('user'))
 	};
 
-	setUser = user => this.setState({ user });
->>>>>>> feature-add-event
+	setUser = user => {
+		localStorage.setItem('user', JSON.stringify(user));
+		this.setState({ user });
+	};
 
 	renderWithUser = Component => {
 		return props => <Component {...props} user={this.state.user} />;
@@ -92,40 +90,40 @@ export class Routes extends PureComponent {
 							render={props => <AsyncLogin {...props} setUser={this.setUser} />}
 						/>
 
-            {this.state.user != null ? (
-              [
-                <Route
-                  path="/"
-                  exact
-                  render={this.renderWithUser(AsyncHome)}
-                />,
-                <Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
-              ]
-            ) : (
-              <Route
-                path="/"
-                exact
-                render={props => (
-                  <NotLoginSplash {...props} setUser={this.setUser} />
-                )}
-              />
-            )}
+						{this.state.user != null ? (
+							[
+								<Route
+									path="/"
+									exact
+									render={this.renderWithUser(AsyncHome)}
+								/>,
+								<Route path="/" exact render={this.renderWithUser(AsyncFeed)} />
+							]
+						) : (
+							<Route
+								path="/"
+								exact
+								render={props => (
+									<NotLoginSplash {...props} setUser={this.setUser} />
+								)}
+							/>
+						)}
 
-            <Route
-              path="/logout"
-              exact
-              render={props => {
-                this.setUser(null);
-                props.history.replace("/");
-                return null;
-              }}
-            />
-            <BottomBar />
-          </Fragment>
-        </BrowserRouter>
-      </MuiThemeProvider>
-    );
-  }
+						<Route
+							path="/logout"
+							exact
+							render={props => {
+								this.setUser(null);
+								props.history.replace('/');
+								return null;
+							}}
+						/>
+						<BottomBar />
+					</Fragment>
+				</BrowserRouter>
+			</MuiThemeProvider>
+		);
+	}
 }
 
 export default Routes;

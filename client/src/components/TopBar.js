@@ -3,6 +3,7 @@ import AppBar from "material-ui/AppBar";
 import FontIcon from "material-ui/FontIcon";
 import Media from "react-media";
 import { withRouter } from "react-router-dom";
+import { FlashLight } from "../constants";
 
 const HomeIcon = (
   <FontIcon className="material-icons" style={{ color: "#fff" }}>
@@ -21,7 +22,7 @@ export const TopBar = ({ history }) => {
         query="(max-width: 1023px)"
         render={() => (
           <AppBar
-            title="Flashlight"
+            title={FlashLight}
             onClick={navigateToHome}
             iconElementLeft={HomeIcon}
             iconStyleLeft={{
@@ -47,7 +48,7 @@ export const TopBar = ({ history }) => {
         query="(min-width: 1024px)"
         render={() => (
           <AppBar
-            title="Flashlight"
+            title={FlashLight}
             onClick={navigateToHome}
             iconElementLeft={HomeIcon}
             iconStyleLeft={{
