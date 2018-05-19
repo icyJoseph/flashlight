@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import EventForm from '../components/EventForm';
-import { Redirect } from 'react-router-dom';
 
 class AddEvent extends Component {
 	state = { title: '', location: '', description: '', activity: '' };
@@ -72,7 +71,5 @@ class AddEvent extends Component {
 		);
 	}
 }
-
-function ServerError() {}
 
 export default AddEvent;

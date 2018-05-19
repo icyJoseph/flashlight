@@ -45,12 +45,6 @@ const AsyncAddEvent = Loadable({
 	delay: 600
 });
 
-const asyncHistory = Loadable({
-	loader: () => import('./containers/History'),
-	loading: Loader,
-	delay: 600
-});
-
 export class Routes extends PureComponent {
 	state = {
 		user: JSON.parse(localStorage.getItem('user'))
