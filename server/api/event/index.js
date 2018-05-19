@@ -8,15 +8,15 @@ router.get('/list', (req, res) => {
 	res.send(getEvents());
 });
 
-router.get('/create', (req, res) => {
-	res.send('testing');
-});
-
 // Create event
 router.post('/create', (req, res) => {
-	createEvent(
-		eventCreator(req.body.title, req.body.location, req.body.participants)
-	);
+	if (req.body != null) {
+		createEvent(
+			eventCreator(req.body.title, req.body.location, req.body.participants)
+		);
+	}
+	// Should add redirect here
+	res.send('Event Created!');
 });
 
 function eventCreator(title, location, participants) {
