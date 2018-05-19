@@ -6,7 +6,7 @@ import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 
 export const iconButtonElement = (
-  <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
+  <IconButton touch={true} tooltipPosition="bottom-left">
     <MoreVertIcon color={grey400} />
   </IconButton>
 );

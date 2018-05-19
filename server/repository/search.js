@@ -35,3 +35,7 @@ export function createSearch(search) {
 export function getSearches() {
   return searches;
 }
+
+export function getActiveSearches() {
+  return searches.filter(search => search.active);
+}
