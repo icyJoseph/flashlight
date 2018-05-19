@@ -10,12 +10,6 @@ class Home extends Component {
     ]
   };
 
-  // componentDidMount() {
-  //   fetch("/api")
-  //     .then(res => res.text())
-  //     .then(txt => this.setState({ txt }));
-  // }
-
   render() {
     const { interests } = this.state;
     return (
