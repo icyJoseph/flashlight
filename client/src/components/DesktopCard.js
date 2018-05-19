@@ -1,33 +1,45 @@
 import React from "react";
-import { GridTile } from "material-ui/GridList";
-import IconButton from "material-ui/IconButton";
-import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
+import { GridList, GridTile } from "material-ui/GridList";
+import Subheader from "material-ui/Subheader";
 
-const DesktopCard = ({
-  id,
-  title,
-  person: { name = "", lastname = "" },
-  image,
-  featured
-}) => (
-  <GridTile
-    key={id}
-    title={title}
-    subtitle={
-      <span>
-        with <b>{name}</b>
-      </span>
-    }
-    cols={featured ? 2 : 1}
-    rows={featured ? 2 : 1}
-    actionIcon={
-      <IconButton>
-        <MoreVertIcon color="white" />
-      </IconButton>
-    }
-  >
-    <img src={image} alt={`${name} face`} />
-  </GridTile>
-);
+import { cardMenu } from "./commons";
+import { today } from "../constants";
 
+const styles = {
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around"
+  },
+  gridList: {
+    width: 500
+  }
+};
+
+const DesktopCard = ({ events, navigateTo }) => {
+  return (
+    <div style={styles.root}>
+      <GridList cellHeight={120} padding={1} style={styles.gridList} cols={2}>
+        <Subheader>{today}</Subheader>
+        {events.map(e => (
+          <GridTile
+            key={e.id}
+            title={e.title}
+            subtitle={
+              <span>
+                with <b>{e.person.name}</b>
+              </span>
+            }
+            cols={e.featured ? 2 : 1}
+            rows={e.featured ? 2 : 1}
+            actionIcon={cardMenu}
+            onClick={navigateTo(e.id)}
+          >
+            <img src={e.image} alt={`${e.person.name} face`} />
+          </GridTile>
+        ))}
+      </GridList>
+    </div>
+  );
+};
 export default DesktopCard;
